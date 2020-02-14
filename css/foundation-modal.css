@@ -1,0 +1,49 @@
+.modal-window .modal-table {
+  margin-bottom: 20px;
+}
+.modal-window .modal-table .cell {
+  padding: 3px 30px 3px 0;
+}
+.modal-window .modal-table .cell .icon {
+  font-size: 12px;
+  margin: 0 10px 0 5px;
+  color: #999;
+}
+.modal-window .modal-table .cell .icon.glyphicon-chevron-right {
+  margin-left: 25px;
+  margin-right: 5px;
+  font-size: 9px;
+  position: relative;
+  top: 0;
+}
+.modal-window .modal-table .cell .icon.glyphicon-arrow-right {
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: 7px;
+  position: relative;
+  top: -2px;
+}
+.modal-window .modal-table .cell-0 {
+  white-space: nowrap;
+}
+.modal-window table {
+  width: 100% !important;
+}
+.modal-window.modal-width-50 .modal-dialog {
+  min-width: 50% !important;
+}
+.modal-window.modal-width-60 .modal-dialog {
+  min-width: 60% !important;
+}
+.modal-window.modal-width-70 .modal-dialog {
+  min-width: 70% !important;
+}
+.modal-window.modal-width-75 .modal-dialog {
+  min-width: 75% !important;
+}
+.modal-window.modal-width-80 .modal-dialog {
+  min-width: 80% !important;
+}
+.modal-window.modal-width-90 .modal-dialog {
+  min-width: 90% !important;
+}

@@ -1,0 +1,13 @@
+name = Foundation Modal
+core = 7.x
+package = Foundation
+version = 7.x-1.0
+project = foundation_modal
+project path = sites/all/modules/custom
+
+dependencies[] = foundation_form
+
+files[] = class/Modal.php
+files[] = class/Factory/ModalFactory.php
+files[] = class/Factory/ModalInterface.php
+files[] = class/Factory/ModalPrototype.php

@@ -1,0 +1,100 @@
+<?php
+
+/**
+ * @file
+ * Исходный код модуля "foundation_modal".
+ */
+
+/**
+ * Implements hook_preprocess_modal().
+ */
+function foundation_modal_init() {
+  drupal_add_js(drupal_get_path('module', 'foundation_modal') . '/js/foundation-modal.js');
+  drupal_add_css(drupal_get_path('module', 'foundation_modal') . '/css/foundation-modal.css');
+}
+
+/**
+ * Implements hook_menu().
+ */
+function foundation_modal_menu() {
+  $items['modal/%'] = array(
+    'page callback' => 'foundation_modal_handler',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'delivery callback' => 'ajax_deliver',
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function foundation_modal_theme() {
+  return array(
+    'modal' => array(
+      'template' => 'template/modal',
+      'variables' => array(
+        'title' => NULL,
+        'body' => NULL,
+        'classes_modal' => array(),
+        'classes_header' => array(),
+        'classes_body' => array(),
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_preprocess_modal().
+ */
+function foundation_modal_preprocess_modal(&$variables) {
+  if (!is_array($variables['classes_modal'])) {
+    $variables['classes_modal'] = array($variables['classes_modal']);
+  }
+  if (!is_array($variables['classes_header'])) {
+    $variables['classes_header'] = array($variables['classes_header']);
+  }
+  if (!is_array($variables['classes_body'])) {
+    $variables['classes_body'] = array($variables['classes_body']);
+  }
+  if (!is_array($variables['classes_dialog'])) {
+    $variables['classes_dialog'] = array($variables['classes_dialog']);
+  }
+
+  $variables['classes_modal'] = implode(' ', $variables['classes_modal']);
+  $variables['classes_header'] = implode(' ', $variables['classes_header']);
+  $variables['classes_body'] = implode(' ', $variables['classes_body']);
+  $variables['classes_dialog'] = implode(' ', $variables['classes_dialog']);
+}
+
+/**
+ * Модальный диалог.
+ *
+ * @param string $namespace
+ *   Тип диалога.
+ *
+ * @return array
+ *   Массив AJAX команд.
+ * @throws \Exception
+ */
+function foundation_modal_handler($namespace) {
+  $modal = array(
+    'id' => Modal::id($namespace),
+    'title' => 'Настройки',
+    'body' => 'Содержимое отсутствует',
+    'classes_modal' => array(Modal::id($namespace)),
+    'classes_header' => array(),
+    'classes_body' => array(),
+    'classes_dialog' => array(),
+    'args' => func_get_args(),
+  );
+
+  $builder = ModalFactory::get($namespace, $modal['args'][1], $modal['args']);
+  $modal['title'] = $builder->title();
+  $modal['body'] = $builder->body();
+  $modal['classes_modal'] = $builder->classes($modal['classes_modal']);
+
+  return array('#type' => 'ajax', '#commands' => Modal::show($modal));
+}
